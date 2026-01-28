@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+    <Style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #f3e8ff;
+            --dark: #0f172a;
+            --text: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #ddb4b4 60%, #f3e8ff 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== Navbar ===== */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: #e7d6f8;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: #111827;
+        }
+
+        .logo span {
+            background: var(--primary);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        nav ul li {
+            font-size: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav ul li:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.35);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        /* Anchor styling */
+        nav ul li a {
+            text-decoration: none;
+            color: #111827;
+            transition: color .3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 26px;
+            height: 3px;
+            background: #111827;
+            border-radius: 4px;
+            transition: .3s;
+        }
+
+        /* Responsive navbar */
+        @media (max-width:900px) {
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffffee;
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                gap: 22px;
+                padding: 25px 0;
+                transform: translateY(-120%);
+                transition: transform .4s ease;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+
+            .nav-btn {
+                display: inline-block;
+            }
+        }
+
+        .projects-section {
+            padding: 100px 20px;
+            background: #faf7ff;
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .projects-container h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .projects-desc {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .projects-desc a {
+            color: #8b5cf6;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        /* Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .blog-img {
+            width: 100%;
+            max-width: 900px;
+            /* control image width */
+            margin: 40px auto;
+            /* center horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: auto;
+            /* no distortion */
+            border-radius: 16px;
+            /* smooth edges */
+            object-fit: cover;
+            /* perfect fit */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+        }
+
+        .blog-content-area {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .blog-content-area h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .blog-meta {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .blog-content-area h2 {
+            margin-top: 40px;
+            margin-bottom: 12px;
+            font-size: 26px;
+            color: #111827;
+        }
+
+        .blog-content-area h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #1f2937;
+        }
+
+        .blog-content-area p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #374151;
+            margin-bottom: 18px;
+        }
+
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </Style>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+
+            <div class="logo">
+                <span>S</span> Master Skills
+            </div>
+
+            <!-- Hamburger -->
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Menu -->
+            <ul id="navMenu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#notes">Process</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#contact" class="nav-btn">Contact</a></li>
+            </ul>
+
+        </nav>
+    </header>
+    <section class="projects-section">
+        <div class="projects-container">
+
+            <h2>Recent Blog</h2>
+            <p class="projects-desc">
+                Below you can see some examples of my recent work.
+                Check out my complete <a href="index.html">portfolio</a>.
+                Have a project in mind? <a href="index.html#contact">Let’s make something great together!</a>
+            </p>
+            <br>
+            <div class="blog-img">
+                <img src="blog 3.png" alt="">
+            </div>
+            <div class="blog-content-area">
+
+                <h1>Web Content Writer</h1>
+                <p class="blog-meta">April 30, 2025 · S Master Skills</p>
+
+                <p>
+                    A skilled Web Content Writer crafts words that inform, engage, and convert readers into loyal
+                    audiences.
+                </p>
+
+                <h2>1. Web Content Writer Kaun Hota Hai?</h2>
+                <p>
+                    Web Content Writer ek aisa professional hota hai jo websites, blogs, landing pages aur online
+                    platforms ke liye engaging, informative aur SEO‑friendly content likhta hai. Iska main kaam hota hai
+                    user ko attract karna aur unhe valuable information dena, taaki website par trust aur traffic dono
+                    bade.
+                </p>
+
+                <h2>2. Web Content Writing Kyun Zaroori Hai?</h2>
+                <p>
+                    Aaj ke digital time me content hi sab kuch hai. Chahe business ho, personal brand ho ya blog — bina
+                    achhe content ke online growth possible nahi. Strong content se website ki credibility badhti hai
+                    aur Google ranking bhi improve hoti hai.
+                </p>
+
+                <h3>3. Ek Achhe Web Content Writer Ki Skills</h3>
+                <p>
+                    Ek professional content writer ke paas clear writing skills, research ability, creativity aur SEO ka
+                    basic knowledge hona chahiye. Saath hi, audience psychology samajhna bhi bahut important hota hai.
+                </p>
+
+                <h2>4. SEO Aur Content Writing Ka Connection</h2>
+                <p>SEO ke bina content adhoora hai. Keywords ka sahi use, headings ka proper structure, internal linking
+                    aur readability — ye sab SEO‑friendly content ke important parts hote hain.
+                </p>
+
+                <h2>5. Content Writing Me Research Ki Value</h2>
+                <p>Strong research se hi high‑quality content banta hai. Facts, examples aur updated information content
+                    ko reliable aur professional banati hai.
+                </p>
+
+                <h2>6. Headings Aur Formatting Ka Importance</h2>
+                <p>Sirf likhna kaafi nahi hota. Headings, sub‑headings, bullet points aur short paragraphs content ko
+                    reader‑friendly banate hain aur user engagement badhate hain.
+                </p>
+
+                <h2>7. Web Content Writer Ke Types</h2>
+                <p>Web content writing ke kai forms hote hain jaise blog writing, website content, product descriptions,
+                    landing pages, email content aur social media captions. Har type ka style aur purpose alag hota hai.
+                </p>
+
+                <h2>8. Beginner Ke Liye Content Writing Tips</h2>
+                <p>Shuruat me simple language use karein, daily likhne ki habit banayein aur achhe blogs ko read karein.
+                    Practice ke saath writing naturally improve hoti hai.
+                </p>
+
+                <h2>9. Content Writing Se Career Kaise Banayein?</h2>
+                <p>Freelancing platforms, blogging aur agency jobs ke through content writing ek strong career option
+                    ban sakta hai. Consistency aur quality yahan success ki key hai.
+                </p>
+
+                <h2>10. Conclusion: Content Hi Digital Power Hai</h2>
+                <p>Web Content Writer sirf words nahi likhta, balki brand ki voice banata hai. Agar aap creativity aur
+                    learning ke liye ready hain, to content writing aapke liye ek powerful career ho sakta hai.
+                    <br>
+                    Final Note: Achha content wahi hota hai jo reader ko value de, clear ho aur trustworthy lage. Isi se
+                    digital success milti hai.
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+    <Style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #f3e8ff;
+            --dark: #0f172a;
+            --text: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #ddb4b4 60%, #f3e8ff 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== Navbar ===== */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: #e7d6f8;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: #111827;
+        }
+
+        .logo span {
+            background: var(--primary);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        nav ul li {
+            font-size: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav ul li:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.35);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        /* Anchor styling */
+        nav ul li a {
+            text-decoration: none;
+            color: #111827;
+            transition: color .3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 26px;
+            height: 3px;
+            background: #111827;
+            border-radius: 4px;
+            transition: .3s;
+        }
+
+        /* Responsive navbar */
+        @media (max-width:900px) {
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffffee;
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                gap: 22px;
+                padding: 25px 0;
+                transform: translateY(-120%);
+                transition: transform .4s ease;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+
+            .nav-btn {
+                display: inline-block;
+            }
+        }
+
+        .projects-section {
+            padding: 100px 20px;
+            background: #faf7ff;
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .projects-container h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .projects-desc {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .projects-desc a {
+            color: #8b5cf6;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        /* Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .blog-img {
+            width: 100%;
+            max-width: 900px;
+            /* control image width */
+            margin: 40px auto;
+            /* center horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: auto;
+            /* no distortion */
+            border-radius: 16px;
+            /* smooth edges */
+            object-fit: cover;
+            /* perfect fit */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+        }
+
+        .blog-content-area {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .blog-content-area h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .blog-meta {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .blog-content-area h2 {
+            margin-top: 40px;
+            margin-bottom: 12px;
+            font-size: 26px;
+            color: #111827;
+        }
+
+        .blog-content-area h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #1f2937;
+        }
+
+        .blog-content-area p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #374151;
+            margin-bottom: 18px;
+        }
+
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </Style>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+
+            <div class="logo">
+                <span>S</span> Master Skills
+            </div>
+
+            <!-- Hamburger -->
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Menu -->
+            <ul id="navMenu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#notes">Process</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#contact" class="nav-btn">Contact</a></li>
+            </ul>
+
+        </nav>
+    </header>
+    <section class="projects-section">
+        <div class="projects-container">
+
+            <h2>Recent Blog</h2>
+            <p class="projects-desc">
+                Below you can see some examples of my recent work.
+                Check out my complete <a href="index.html">portfolio</a>.
+                Have a project in mind? <a href="index.html#contact">Let’s make something great together!</a>
+            </p>
+            <br>
+            <div class="blog-img">
+                <img src="blog 4.jpg" alt="">
+            </div>
+            <div class="blog-content-area">
+
+                <h1>Technology Information</h1>
+                <p class="blog-meta">June 5, 2025 · S Master Skills</p>
+
+                <p>
+                    Technology ko samajhna ab easy—AI, web, apps aur digital future ke updates ek jagah.
+                </p>
+
+                <h2>Technology Information Blog
+                    <br>
+                    Aaj Ki Duniya Mein Technology Ka Badhta Mahatva
+                </h2>
+                <p>
+                    Introduction
+                    <br>
+                    Aaj ke digital yug mein Technology sirf ek option nahi balki ek zarurat ban chuki hai. Mobile phone
+                    se lekar artificial intelligence tak, technology ne humari lifestyle, business, education aur
+                    communication sab kuch badal diya hai. Is blog mein hum technology ke important aspects ko simple
+                    aur clear language mein samjhenge.
+                </p>
+
+                <h2>Technology Kya Hai?</h2>
+                <p>
+                    Technology ka matlab hai science aur knowledge ka practical use, jisse hum apni problems ko aasani
+                    se solve kar sakein. Chahe wo smartphone ho ya internet, sab technology ka hi part hai.
+                </p>
+
+                <h3>Information Technology (IT) Ka Role</h3>
+                <p>
+                    Information Technology ne data ko manage, store aur share karna bahut easy bana diya hai.
+                    <br>
+                    Computers
+                    <br>
+                    Software
+                    <br>
+                    Internet
+                    <br>
+                    Cloud Services
+                    Sab IT ka hi hissa hain.
+                </p>
+
+                <h2>Internet Aur Digital Revolution</h2>
+                <p>Internet ne duniya ko ek global village bana diya hai.
+                    Aaj hum:
+                    <br>
+                    Online shopping kar sakte hain
+                    <br>
+                    Online classes attend kar sakte hain
+                    <br>
+                    Ghar baithe kaam (Work From Home) kar sakte hain
+                </p>
+
+                <h2>Artificial Intelligence (AI)</h2>
+                <p>AI ek aisi technology hai jo machines ko human jaise decisions lene ke layak banati hai.
+                    Examples:
+                    <br>
+                    Chatbots
+                    <br>
+                    Voice Assistants
+                    <br>
+                    Recommendation Systems
+                    <br>
+                    Future mein AI aur bhi powerful hone wali hai.
+                </p>
+
+                <h2>Mobile Technology</h2>
+                <p>Smartphones ne communication ko super fast bana diya hai.
+                    Aaj ek mobile phone se hum:
+                    <br>
+                    Banking
+                    <br>
+                    Social Media
+                    <br>
+                    Photography
+                    <br>
+                    Business
+                    sab kuch manage kar sakte hain.
+                </p>
+
+                <h2>Cyber Security Ki Importance</h2>
+                <p>Jaise-jaise technology badh rahi hai, waise-waise cyber threats bhi badh rahe hain.
+                    Isliye zaroori hai:
+                    <br>
+                    Strong passwords
+                    <br>
+                    Two-factor authentication
+                    <br>
+                    Secure websites
+                    <br>
+                    Cyber security humare data ko safe rakhti hai.
+                </p>
+
+                <h2>Cloud Computing</h2>
+                <p>Cloud technology ki madad se data ko online store kiya ja sakta hai.
+                    Benefits:
+                    <br>
+                    Data safe rehta hai
+                    <br>
+                    Kahin se bhi access
+                    <br>
+                    Cost effective solutions
+                </p>
+
+                <h2>Technology In Education</h2>
+                <p>Online classes, e-books aur digital courses ne education ko accessible bana diya hai.
+                    Aaj koi bhi student ghar baithe world-class knowledge le sakta hai.
+                </p>
+
+                <h2>Technology In Business</h2>
+                <p>Technology ne business growth ko fast kar diya hai.
+                    <br>
+                    Digital marketing
+                    <br>
+                    Online payments
+                    <br>
+                    Automation tools
+                    In sab ki wajah se business smart aur efficient ban raha hai.
+                </p>
+
+                <h2>Future Of Technology</h2>
+                <p>Future mein technologies jaise:
+                    <br>
+                    Artificial Intelligence
+                    <br>
+                    Robotics
+                    <br>
+                    Blockchain
+                    <br>
+                    Virtual Reality
+                    humari zindagi ko aur bhi advanced bana denge.
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>Technology humari life ka ek inseparable part ban chuki hai. Agar hum technology ka sahi use karein, toh hum apna future bright bana sakte hain. Isliye humein technology ke saath update rehna chahiye aur use positive way mein apnana chahiye.
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

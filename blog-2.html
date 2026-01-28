@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+    <Style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #f3e8ff;
+            --dark: #0f172a;
+            --text: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #ddb4b4 60%, #f3e8ff 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== Navbar ===== */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: #e7d6f8;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: #111827;
+        }
+
+        .logo span {
+            background: var(--primary);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        nav ul li {
+            font-size: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav ul li:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.35);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        /* Anchor styling */
+        nav ul li a {
+            text-decoration: none;
+            color: #111827;
+            transition: color .3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 26px;
+            height: 3px;
+            background: #111827;
+            border-radius: 4px;
+            transition: .3s;
+        }
+
+        /* Responsive navbar */
+        @media (max-width:900px) {
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffffee;
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                gap: 22px;
+                padding: 25px 0;
+                transform: translateY(-120%);
+                transition: transform .4s ease;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+
+            .nav-btn {
+                display: inline-block;
+            }
+        }
+
+        .projects-section {
+            padding: 100px 20px;
+            background: #faf7ff;
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .projects-container h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .projects-desc {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .projects-desc a {
+            color: #8b5cf6;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        /* Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .blog-img {
+            width: 100%;
+            max-width: 900px;
+            /* control image width */
+            margin: 40px auto;
+            /* center horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: auto;
+            /* no distortion */
+            border-radius: 16px;
+            /* smooth edges */
+            object-fit: cover;
+            /* perfect fit */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+        }
+
+        .blog-content-area {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .blog-content-area h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .blog-meta {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .blog-content-area h2 {
+            margin-top: 40px;
+            margin-bottom: 12px;
+            font-size: 26px;
+            color: #111827;
+        }
+
+        .blog-content-area h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #1f2937;
+        }
+
+        .blog-content-area p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #374151;
+            margin-bottom: 18px;
+        }
+
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </Style>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+
+            <div class="logo">
+                <span>S</span> Master Skills
+            </div>
+
+            <!-- Hamburger -->
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Menu -->
+            <ul id="navMenu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#notes">Process</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#contact" class="nav-btn">Contact</a></li>
+            </ul>
+
+        </nav>
+    </header>
+    <section class="projects-section">
+        <div class="projects-container">
+
+            <h2>Recent Blog</h2>
+            <p class="projects-desc">
+                Below you can see some examples of my recent work.
+                Check out my complete <a href="index.html">portfolio</a>.
+                Have a project in mind? <a href="index.html#contact">Let’s make something great together!</a>
+            </p>
+            <br>
+            <div class="blog-img">
+                <img src="blog 2" alt="">
+            </div>
+            <div class="blog-content-area">
+
+                <h1>Graphic Designer</h1>
+                <p class="blog-meta">March 27, 2025 · S Master Skills</p>
+
+                <p>
+                    Graphic design sirf visuals nahi, balki ideas ko impact ke saath present karne ki kala hai.
+                </p>
+
+                <h2>Graphic Designer Kya Hota Hai? Ek Creative Career Ka Complete Guide</h2>
+                <p>
+                    Aaj ke digital zamane me Graphic Designer ek aisa profession ban chuka hai jo creativity aur
+                    technology dono ko ek saath jodta hai. Chahe website ho, social media ho, poster ho ya brand ka
+                    logo—har jagah graphic design ka role bahut important hota hai.
+                    <br>
+                    Is blog me hum detail me samjhenge:
+                    <br>
+                    Graphic Designer kya hota hai
+                    <br>
+                    Iska kaam kya hota hai
+                    <br>
+                    Skills kya chahiye
+                    <br>
+                    Career scope aur earning
+                    <br>
+                    Kaise shuru kare graphic designing
+                </p>
+
+                <h2>Graphic Designer Kya Hota Hai?</h2>
+                <p>
+                    Graphic Designer wo professional hota hai jo visual content create karta hai, jaise:
+                    <br>
+                    Logo
+                    <br>
+                    Banner
+                    <br>
+                    Poster
+                    <br>
+                    Social media creatives
+                    <br>
+                    Website layout
+                    <br>
+                    Brochure aur visiting cards
+                    <br>
+                    Inka main kaam hota hai ideas ko visuals ke through communicate karna, taaki audience easily samajh
+                    sake aur attract ho.
+                </p>
+
+                <h3>Graphic Designer Ke Kaam (Roles & Responsibilities)</h3>
+                <p>
+                    Ek Graphic Designer ke kaam sirf design banana tak limited nahi hote. Unke kuch important kaam hote
+                    hain:
+                    <br>
+                    Client ki requirement samajhna
+                    <br>
+                    Creative concepts banana
+                    <br>
+                    Color combination aur typography choose karna
+                    <br>
+                    Branding ke liye visual identity create karna
+                    <br>
+                    Revisions aur feedback par kaam karna
+                    <br>
+                    Achha graphic designer wahi hota hai jo design ke saath message bhi deliver kare.
+                </p>
+
+                <h2>Graphic Designer Banane Ke Liye Zaroori Skills</h2>
+                <p>Agar aap graphic designer banna chahte ho, to niche diye gaye skills bahut important hain:
+                    <br>
+                    🎨 Creative Skills
+                    <br>
+                    Creativity aur imagination
+                    <br>
+                    Color theory ki samajh
+                    <br>
+                    Typography ka knowledge
+                    <br>
+                    💻 Technical Skills
+                    <br>
+                    Adobe Photoshop
+                    <br>
+                    Adobe Illustrator
+                    <br>
+                    Canva
+                    <br>
+                    CorelDRAW
+                    <br>
+                    Figma (UI/UX ke liye)
+                    <br>
+                    🧠 Soft Skills
+                    <br>
+                    Communication skills
+                    <br>
+                    Time management
+                    <br>
+                    Client handling
+                    <br>
+                    Problem-solving mindset
+                </p>
+
+                <h2>Graphic Designing Tools Jo Aapko Seekhne Chahiye</h2>
+                <p>Professional graphic designer banne ke liye in tools ka knowledge hona chahiye:
+                    <br>
+                    Photoshop – Photo editing aur creatives ke liye
+                    <br>
+                    Illustrator – Logo aur vector design ke liye
+                    <br>
+                    Canva – Beginners ke liye best tool
+                    <br>
+                    Figma – UI/UX aur web design ke liye
+                    <br>
+                    Tip: Pehle Canva se start karo, phir Photoshop aur Illustrator par shift karo.
+                </p>
+
+                <h2>Graphic Designer Ka Career Scope</h2>
+                <p>Graphic Designing ka scope India aur abroad dono me kaafi strong hai.
+                    <br>
+                    Aap kaam kar sakte ho:
+                    <br>
+                    Digital marketing agency
+                    <br>
+                    IT company
+                    <br>
+                    Media house
+                    <br>
+                    Freelance designer ke roop me
+                    <br>
+                    Apna design studio kholkar
+                    <br>
+                    Social media ke badhte use ke saath graphic designers ki demand aur bhi badh rahi hai.
+                </p>
+
+                <h2>Graphic Designer Ki Salary / Earning</h2>
+                <p>Graphic Designer ki earning experience aur skills par depend karti hai:
+                    <br>
+                    Beginner: ₹10,000 – ₹20,000 per month
+                    <br>
+                    Experienced: ₹30,000 – ₹60,000 per month
+                    <br>
+                    Freelancer: ₹500 – ₹5,000 per design
+                    <br>
+                    Expert Level: ₹1,00,000+ per month
+                    <br>
+                    Agar aap freelance aur international clients ke saath kaam karte ho, to earning aur bhi zyada ho
+                    sakti hai.
+                </p>
+
+                <h2>Graphic Designer Kaise Bane? (Step-by-Step)</h2>
+                <p>Basic graphic designing seekho
+                    <br>
+                    Canva / Photoshop practice karo
+                    <br>
+                    Daily design banana shuru karo
+                    <br>
+                    Portfolio ready karo
+                    <br>
+                    Instagram, Fiverr, Upwork par profile banao
+                    <br>
+                    Clients ke saath kaam karke experience lo
+                    <br>
+                    Consistency aur practice yahan success ki key hai.
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>Graphic Designing ek creative, flexible aur high-demand career hai. Agar aap creativity pasand karte
+                    ho aur computer ke saath kaam karna achha lagta hai, to graphic designer aapke liye perfect career
+                    option ho sakta hai.
+<br>
+                    Bas ek baat yaad rakho—
+                    👉 Skill + Practice + Patience = Success
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

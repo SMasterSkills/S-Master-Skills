@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+    <Style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #f3e8ff;
+            --dark: #0f172a;
+            --text: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #ddb4b4 60%, #f3e8ff 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ===== Navbar ===== */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: #e7d6f8;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            color: #111827;
+        }
+
+        .logo span {
+            background: var(--primary);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        nav ul li {
+            font-size: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav ul li:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.35);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        /* Anchor styling */
+        nav ul li a {
+            text-decoration: none;
+            color: #111827;
+            transition: color .3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 26px;
+            height: 3px;
+            background: #111827;
+            border-radius: 4px;
+            transition: .3s;
+        }
+
+        /* Responsive navbar */
+        @media (max-width:900px) {
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffffee;
+                backdrop-filter: blur(12px);
+                flex-direction: column;
+                gap: 22px;
+                padding: 25px 0;
+                transform: translateY(-120%);
+                transition: transform .4s ease;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, .08);
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+
+            .nav-btn {
+                display: inline-block;
+            }
+        }
+
+        .projects-section {
+            padding: 100px 20px;
+            background: #faf7ff;
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .projects-container h2 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .projects-desc {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .projects-desc a {
+            color: #8b5cf6;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        /* Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .blog-img {
+            width: 100%;
+            max-width: 900px;
+            /* control image width */
+            margin: 40px auto;
+            /* center horizontally */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blog-img img {
+            width: 100%;
+            height: auto;
+            /* no distortion */
+            border-radius: 16px;
+            /* smooth edges */
+            object-fit: cover;
+            /* perfect fit */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+        }
+
+        .blog-content-area {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .blog-content-area h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+
+        .blog-meta {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+
+        .blog-content-area h2 {
+            margin-top: 40px;
+            margin-bottom: 12px;
+            font-size: 26px;
+            color: #111827;
+        }
+
+        .blog-content-area h3 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #1f2937;
+        }
+
+        .blog-content-area p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #374151;
+            margin-bottom: 18px;
+        }
+
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </Style>
+</head>
+
+<body>
+    <header>
+        <nav class="nav">
+
+            <div class="logo">
+                <span>S</span> Master Skills
+            </div>
+
+            <!-- Hamburger -->
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Menu -->
+            <ul id="navMenu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#notes">Process</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="index.html#blog">Blog</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#contact" class="nav-btn">Contact</a></li>
+            </ul>
+
+        </nav>
+    </header>
+    <section class="projects-section">
+        <div class="projects-container">
+
+            <h2>Recent Blog</h2>
+            <p class="projects-desc">
+                Below you can see some examples of my recent work.
+                Check out my complete <a href="index.html">portfolio</a>.
+                Have a project in mind? <a href="index.html#contact">Let’s make something great together!</a>
+            </p>
+            <br>
+            <div class="blog-img">
+                <img src="blog 1.png" alt="">
+            </div>
+            <div class="blog-content-area">
+
+                <h1>Web development</h1>
+                <p class="blog-meta">February 20, 2025 · S Master Skills</p>
+
+                <p>
+                    Web development is not just about writing code. It is about building
+                    experiences that are fast, scalable, and user-friendly.
+                    In this blog, I share practical learnings from real projects.
+                </p>
+
+                <h2>Web Development: Digital World Ki Backbone</h2>
+                <p>
+                    Aaj ke digital era mein agar koi skill sabse zyada demand mein hai, to wo hai Web Development. Chahe
+                    business ho, personal brand ho ya startup — har kisi ko ek strong, fast aur user-friendly website
+                    chahiye. Isi jagah web developers ka role shuru hota hai.
+                </p>
+
+                <h2>Web Development Kya Hai?</h2>
+                <p>
+                    Web Development ka matlab hota hai websites aur web applications banana aur maintain karna. Isme
+                    design se lekar server tak sab kuch include hota hai — jaise:
+                    <br>
+                    Website ka layout
+                    <br>
+                    Buttons, forms aur animations
+                    <br>
+                    Database aur server handling
+                    <br>
+                    Performance aur security
+                    <br>
+                    Simple shabdon mein, jo kuch bhi aap browser mein dekhte ho, uske peeche web development hota hai.
+                </p>
+
+                <h3>Web Development Ke Main Types</h3>
+                <p>
+                    1️⃣ Front-End Development
+
+                    Front-end wo part hota hai jo user directly dekhta aur use karta hai.
+
+                    Popular Front-End Technologies:
+
+                    HTML – structure ke liye
+
+                    CSS – design aur layout ke liye
+
+                    JavaScript – interactivity ke liye
+
+                    Frameworks & Libraries:
+
+                    React.js
+
+                    Vue.js
+
+                    Angular
+                    <br>
+
+                    2️⃣ Back-End Development
+
+                    Back-end wo part hota hai jo background mein kaam karta hai.
+
+                    Back-End Languages:
+
+                    PHP
+
+                    Python
+
+                    Node.js
+
+                    Java
+
+                    Databases:
+
+                    MySQL
+
+                    MongoDB
+
+                    PostgreSQL
+                    <br>
+
+                    3️⃣ Full-Stack Development
+
+                    Full-stack developer wo hota hai jo front-end + back-end dono handle karta hai.
+                    Ye role companies mein kaafi high demand mein hai.
+                </p>
+
+                <h2>Web Developer Banane Ke Liye Essential Skills</h2>
+                <p>
+                    Ek successful web developer banne ke liye ye skills zaroori hain:
+                    <br>
+                    ✔️ HTML, CSS, JavaScript
+                    <br>
+                    ✔️ Responsive Design
+                    <br>
+                    ✔️ Git & GitHub
+                    <br>
+                    ✔️ APIs & REST
+                    <br>
+                    ✔️ Basic SEO knowledge
+                    <br>
+                    ✔️ Problem-solving mindset
+                </p>
+
+                <h2>Responsive Web Design Ka Importance</h2>
+                <p>Aaj 70% se zyada users mobile se website open karte hain.
+                    Isliye website ka mobile, tablet aur desktop sab par sahi dikhna bahut zaroori hai.
+                    <br>
+                    Responsive design se:
+                    <br>
+                    User experience improve hota hai
+                    <br>
+                    SEO better hota hai
+                    <br>
+                    Bounce rate kam hota hai
+                </p>
+
+                <h2>Latest Web Development Trends (2025)</h2>
+                <p>Web development fast change hota rehta hai. Abhi ke popular trends:
+                    <br>
+                    ⚡ Progressive Web Apps (PWA)
+                    <br>
+                    🤖 AI-powered websites
+                    <br>
+                    🎨 Dark Mode UI
+                    <br>
+                    🚀 No-Code / Low-Code tools
+                    <br>
+                    🔐 Cyber Security focused development
+                </p>
+
+                <h2>Web Development as a Career</h2>
+                <p>Web development ek high-paying aur future-proof career hai.
+                    <br>
+                    Career Options:
+                    <br>
+                    Front-End Developer
+                    <br>
+                    Back-End Developer
+                    <br>
+                    Full-Stack Developer
+                    <br>
+                    Freelancer
+                    <br>
+                    Startup Founder
+                    <br>
+                    India mein earning potential:
+                    <br>
+                    Beginner: ₹20k – ₹40k/month
+                    <br>
+                    Experienced: ₹1L+ /month
+                    <br>
+                    Freelancing: Unlimited 🚀
+                </p>
+
+                <h2>Beginners Ke Liye Tips</h2>
+                <p>Agar aap web development start karna chahte ho:
+                    <br>
+                    Basic se shuru karo
+                    <br>
+                    Daily practice karo
+                    <br>
+                    Projects banao
+                    <br>
+                    Portfolio website zaroor rakho
+                    <br>
+                    Real-world problems solve karo
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>Web development sirf coding nahi hai, balki creativity + logic + technology ka perfect combination
+                    hai. Agar aap digital duniya mein apni pehchaan banana chahte ho, to web development ek best choice
+                    hai.
+                    <br>
+                    “Aaj website banana seekh lo, kal opportunities khud aapko dhoondhengi.”
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
