@@ -99,30 +99,6 @@ nav ul li a {
 nav ul li a:hover {
   color: var(--primary);
 }
-
-/* Mobile toggle */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.menu-toggle span {
-  width: 26px;
-  height: 3px;
-  background: #111827;
-  border-radius: 4px;
-  transition: .3s;
-}
-
-/* Responsive navbar */
-@media (max-width:900px) {
-
-  .menu-toggle {
-    display: flex;
-  }
-
   nav ul {
     position: absolute;
     top: 100%;
@@ -1353,3 +1329,4 @@ nav ul li a:hover {
     font-size: 30px;
   }
 }
+
