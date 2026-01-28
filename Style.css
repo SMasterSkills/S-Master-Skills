@@ -99,6 +99,14 @@ nav ul li a {
 nav ul li a:hover {
   color: var(--primary);
 }
+
+/* Responsive navbar */
+@media (max-width:900px) {
+
+  .menu-toggle {
+    display: flex;
+  }
+
   nav ul {
     position: absolute;
     top: 100%;
