@@ -1353,24 +1353,3 @@ nav ul li a:hover {
     font-size: 30px;
   }
 }
-
-.process-image{
-  width:100%;
-  max-width:280px;        /* image size control */
-  margin-bottom:25px;    /* space between image & heading */
-}
-
-.process-image img{
-  width:180%;
-  height:auto;
-  border-radius:14px;
-  object-fit:cover;
-  box-shadow:0 15px 35px rgba(0,0,0,.12);
-  transition:.4s ease;
-}
-
-@media(max-width:900px){
-  .process-image{
-    margin:0 auto 25px;   /* center image on mobile */
-  }
-}
